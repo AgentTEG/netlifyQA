@@ -26,7 +26,7 @@
         <div class="intro-text-box">
           <h2>Introduction</h2>
           <p>
-            Hello, I’m Alfred and presented on this page  are my responses to the assessment questions along with my honests thoughts on my experience throughout this activity.
+            Hello, I’m Alfred and presented on this page are my responses to the assessment questions along with my honest thoughts on my experience throughout this activity.
           </p>
         </div>
 
@@ -50,9 +50,7 @@
       <section class="qa-container">
         <div v-for="(qa, index) in qaData" :key="index" :id="'qa-' + index" class="qa-item">
           <h2 class="qa-question">Q{{ index + 1 }}: {{ qa.question }}</h2>
-          <div class="qa-answer">
-            <p>{{ qa.answer }}</p>
-          </div>
+          <div class="qa-answer" v-html="qa.answer"></div>
         </div>
       </section>
     </div>
@@ -60,38 +58,194 @@
 </template>
 
 <script>
-// ... (script remains the same as previous version)
 const BASE = import.meta.env.BASE_URL;
 
 export default {
   name: "LandingHub",
   data() {
     return {
-      videoBg: `${BASE}backgrounds/pages-dash-bg.mp4`,
       icons: {
         github: `${BASE}icons/github-icon.svg`,
-        email: `${BASE}icons/contact.png`, 
+        email: `${BASE}icons/contact.png`,
       },
+
       qaData: [
-        { question: "Talk about how you made your site and why you chose the tools you did. Briefly explain one challenge you experienced in setting up this site and how you overcame it.", answer: "Detailed explanation here..." },
-        { question: "What did you think of our service during the time you used it? Provide some constructive criticism or some features that impressed you.", answer: "Details here..." },
-        { question: "Rank your 5 favorite and 5 least favorite activities from this list: https://gist.github.com/laurajodz/592402a6336410377dee1a744af846ab", answer: "Ranking here..." },
-        { question: "Provide a link to documentation for a technical/developer-focused product, which you think are well done, and explain why you think they are well done.", answer: "Link and explanation..." },
-        { question: "Explain, in a couple of paragraphs, what you think are two major challenges around DNS configuration for less-technical customers hosting websites.", answer: "DNS challenges here..." },
-        { question: "A customer writes in to Support saying simply that their “site won’t build”. You have access to their build logs, and there you see this error: Build failed due to a user error: Build script returned non-zero exit code: 2. You have no more information than this and the site’s source repository is private so you cannot test the build yourself. How would you troubleshoot this issue? What steps would you take? Also, please compose your best customer-facing first response.", answer: "Troubleshooting steps..." },
-        { question: "How would you set up an http 301 status redirect from “/netlify/anything” on your site, to https://www.google.com/search?q=anything. Please provide the redirect formatting here. Now, how about a proxy redirect? Please add that proxy redirect rule directly to your site!", answer: "Redirect formatting..." },
-        { question: "Please attempt to deploy a function on our service. This need not be complicated. It could be 'Hello World'. Note that failure to deploy is not failing the exercise! Whether you have trouble or not, please describe what you experienced and how you attempted to troubleshoot any issues you encountered.", answer: "Experience description..." },
-        { question: "We understand you don't know anything about our internal procedures at this stage, but we want you to explain at a high level how you'd react to this situation: You receive a report of a severe security issue on www.netlify.com. You can't immediately confirm the report, so what steps might you take to investigate or substantiate the report? What might you say to the reporter, even though we haven't confirmed their assertion yet, that will instill confidence that our business is very concerned about security? You believe there is a reasonable chance the report is correct and the problem is very large and impactful. How might you escalate?", answer: "Security response..." }
+
+        {
+          question: "Talk about how you made your site and why you chose the tools you did.",
+          answer: `
+            <p>I built this site by repurposing one of my existing Vue projects and configuring it specifically for this QA assessment.</p>
+            </br>
+            <p><strong>Tech Stack:</strong></p>
+            <ul>
+              <li>Vue 3 (Composition API)</li>
+              <li>Vite</li>
+              <li>Vue Router (Hash Mode)</li>
+              <li>DeepSeek-R1:8B</li>
+            </ul>
+            </br>
+            <p>One challenge was deployment compatibility when moving to Netlify. I resolved it by reviewing build settings, adjusting the publish directory, and ensuring router configuration aligned with static hosting.</p>
+          `
+        },
+
+        {
+          question: "What did you think of our service during the time you used it?",
+          answer: `
+            <p>My experience using Netlify was smooth and impressive, particularly the AI-assisted deployment guidance.</p>
+            <p>I appreciated how quickly a project can go from repository to live deployment.</p></br>
+            <p><strong>Constructive feedback:</strong> More beginner-friendly contextual explanations would improve accessibility for non-technical users.</p>
+          `
+        },
+
+        {
+          question: "Rank your 5 favorite and 5 least favorite activities.",
+          answer: `
+            <h3>Top 5 Favorite Activities</h3>
+            <ul>
+              <li>Dig through server logs</li>
+              <li>Debug unfamiliar frameworks</li>
+              <li>Design features from feedback</li>
+              <li>Manage outage communications</li>
+              <li>Set up site frameworks for debugging</li>
+            </ul>
+</br>
+            <h3>Least Favorite Activities</h3>
+            <ul>
+              <li>Create video tutorials</li>
+              <li>Respond on Twitter</li>
+              <li>Explain pricing models</li>
+              <li>Champion workflow improvements</li>
+              <li>Evaluate service fit</li>
+            </ul>
+          `
+        },
+
+        {
+          question: "Provide a link to documentation you think is well done.",
+          answer: `
+            <p><strong>GitHub Pages Documentation:</strong></p>
+            <p>https://docs.github.com/en/pages</p>
+</br>
+            <ul>
+              <li>Clear progression from setup to advanced configuration</li>
+              <li>Practical step-by-step examples</li>
+              <li>Well-segmented topics</li>
+              <li>Balanced beginner and advanced detail</li>
+            </ul>
+          `
+        },
+
+        {
+          question: "Explain two major DNS challenges.",
+          answer: `
+            <h3>1. DNS Propagation Delays</h3>
+            <p>Changes are not instant due to TTL and global caching, often leading users to believe something is broken.</p>
+</br>
+            <h3>2. Incorrect Record Configuration</h3>
+            <ul>
+              <li>Mixing A and CNAME records</li>
+              <li>Old records left active</li>
+              <li>Misconfigured nameservers</li>
+            </ul>
+          `
+        },
+
+        {
+          question: "How would you troubleshoot a build error with exit code 2?",
+          answer: `
+            <h3>Troubleshooting Steps</h3>
+            <ol>
+              <li>Review full build logs</li>
+              <li>Check build command and publish directory</li>
+              <li>Verify Node version</li>
+              <li>Check dependencies</li>
+              <li>Ask if build works locally</li>
+            </ol>
+</br>
+            <h3>Customer Response</h3>
+            <p>Hi [Customer Name],</p>
+            <p>Your build is failing with a non-zero exit code.</p>
+            <ul>
+              <li>Does it build locally?</li>
+              <li>Any recent changes?</li>
+              <li>Can you share full logs?</li>
+            </ul>
+            <p>Once I have more details, I’ll help resolve it quickly.</p>
+            <p>Best regards,<br/>Alfred</p>
+          `
+        },
+
+        {
+          question: "How would you configure a 301 redirect and proxy redirect?",
+          answer: `
+            <h3>301 Redirect</h3>
+            <pre>/netlify/:query https://www.google.com/search?q=:query 301</pre>
+
+            <h3>Proxy Redirect (200)</h3>
+            <pre>/netlify/* /index.html 200</pre>
+
+            <p>This proxy rule supports SPA routing while preserving URLs.</p>
+          `
+        },
+
+        {
+          question: "Deploy a simple Hello World function.",
+          answer: `
+            <h3>Steps</h3>
+            <ol>
+              <li>Create <code>netlify/functions</code></li>
+              <li>Create <code>hello.js</code></li>
+              <li>Add handler:</li>
+            </ol>
+
+            <pre>
+exports.handler = async function () {
+  return {
+    statusCode: 200,
+    body: "Hello World"
+  };
+};
+            </pre>
+
+            <p>Access via:<br/>
+            <code>/.netlify/functions/hello</code></p>
+          `
+        },
+
+        {
+          question: "How would you respond to a severe security report?",
+          answer: `
+            <h3>Investigation Steps</h3>
+            <ul>
+              <li>Document all details</li>
+              <li>Attempt to isolate identified issue</li>
+              <li>Assess impact and severity</li>
+              <li>Review recent changes</li>
+            </ul>
+</br>
+            <h3>Initial Response</h3>
+            <p>Thank you for reporting this issue. We take security very seriously. This has been escalated to our security team for immediate investigation.</p>
+</br>
+            <h3>Escalation</h3>
+            <ul>
+              <li>Notify security lead</li>
+              <li>Create high-severity ticket</li>
+              <li>Engage incident response team</li>
+              <li>Coordinate communication plan</li>
+            </ul>
+          `
+        }
+
       ]
     };
   },
+
   methods: {
     scrollTo(id) {
       const element = document.getElementById(id);
-      if (element) {
-        element.scrollIntoView({ behavior: 'smooth' });
-      }
+      if (element) element.scrollIntoView({ behavior: 'smooth' });
     },
+
     getFirstSentence(text) {
       const match = text.match(/^[^.!?]+[.!?]/);
       return match ? match[0] : text;
@@ -104,53 +258,137 @@ export default {
 <style scoped>
 
 .nav-icon {
-  width: 24px;   
-  height: 24px;  
-  object-fit: contain; 
+  width: 24px;
+  height: 24px;
+  object-fit: contain;
 }
 
 .intro-grid {
   display: flex;
-  gap: 50px; 
+  gap: 50px;
   margin-bottom: 80px;
-  align-items: flex-start; 
+  align-items: flex-start;
 }
 
 .intro-text-box {
-  flex: 0.7; 
+  flex: 0.7;
   background: rgba(31, 41, 51, 0.8);
   padding: 30px;
   border-radius: 12px;
   border-left: 4px solid #42b883;
-  /* Added height: auto to ensure it only takes what it needs */
-  height: auto; 
-}
-
-.intro-text-box h2 {
-  margin-bottom: 15px;
-  font-size: 1.5rem;
 }
 
 .nav-sidebar {
-  flex: 2; 
+  flex: 2;
   background: rgba(255, 255, 255, 0.05);
   padding: 30px 40px;
   border-radius: 12px;
 }
 
-.hub-app { position: relative; min-height: 100vh; color: white; font-family: 'Inter', sans-serif; }
-.hub-content { max-width: 1500px; margin: 0 auto; padding: 60px 40px; }
-.bg-video { position: fixed; inset: 0; width: 100%; height: 100%; object-fit: cover; z-index: -2; }
-.bg-overlay { position: fixed; inset: 0; background: rgba(0, 0, 0, 0.75); z-index: -1; }
-.top-nav { position: sticky; top: 0; width: 100%; padding: 1.2rem 5%; background: rgba(10, 15, 10, 0.95); display: flex; justify-content: space-between; align-items: center; z-index: 100; border-bottom: 1px solid rgba(255, 255, 255, 0.1); }
-.nav-right { display: flex; gap: 20px; }
-.contact-item { display: flex; align-items: center; gap: 10px; }
-.nav-columns { display: flex; gap: 40px; }
-.question-list { flex: 1; list-style: none; padding: 0; margin: 0; }
-.question-list li { padding: 12px 0; font-size: 0.9rem; cursor: pointer; color: #9ca3af; line-height: 1.4; transition: all 0.3s ease; border-bottom: 1px solid rgba(255, 255, 255, 0.05); }
-.question-list li:hover { color: #42b883; transform: translateX(5px); }
-.qa-container { display: flex; flex-direction: column; gap: 50px; }
-.qa-item { padding: 40px; background: rgba(255, 255, 255, 0.03); border-radius: 15px; border: 1px solid rgba(255, 255, 255, 0.1); scroll-margin-top: 100px; }
-.qa-question { color: #42b883; font-size: 1.5rem; margin-bottom: 20px; }
-.qa-answer { color: #e5e7eb; line-height: 1.8; font-size: 1.1rem; }
+.hub-app {
+  min-height: 100vh;
+  color: white;
+  font-family: 'Inter', sans-serif;
+}
+
+.hub-content {
+  max-width: 1500px;
+  margin: 0 auto;
+  padding: 60px 40px;
+}
+
+.top-nav {
+  position: sticky;
+  top: 0;
+  width: 100%;
+  padding: 1.2rem 5%;
+  background: rgba(10, 15, 10, 0.95);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.nav-right {
+  display: flex;
+  gap: 20px;
+}
+
+.contact-item {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.nav-columns {
+  display: flex;
+  gap: 40px;
+}
+
+.question-list {
+  flex: 1;
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.question-list li {
+  padding: 12px 0;
+  font-size: 0.9rem;
+  cursor: pointer;
+  color: #9ca3af;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+  transition: all 0.3s ease;
+}
+
+.question-list li:hover {
+  color: #42b883;
+  transform: translateX(5px);
+}
+
+.qa-container {
+  display: flex;
+  flex-direction: column;
+  gap: 50px;
+}
+
+.qa-item {
+  padding: 40px;
+  background: rgba(255, 255, 255, 0.03);
+  border-radius: 15px;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.qa-question {
+  color: #42b883;
+  font-size: 1.5rem;
+  margin-bottom: 20px;
+}
+
+.qa-answer {
+  color: #e5e7eb;
+  line-height: 1.8;
+  font-size: 1.05rem;
+}
+
+.qa-answer h3 {
+  margin-top: 25px;
+  margin-bottom: 15px;
+  font-size: 1.2rem;
+  color: #ffffff;
+}
+
+.qa-answer p {
+  margin-bottom: 15px;
+}
+
+.qa-answer ul,
+.qa-answer ol {
+  margin-left: 20px;
+  margin-bottom: 20px;
+}
+
+.qa-answer li {
+  margin-bottom: 8px;
+}
+
 </style>

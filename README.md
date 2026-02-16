@@ -2,10 +2,10 @@
 
 
 🔗 **Live Demo:** 
-Netlify:
+Netlify:https://orencia-assessment-qa.netlify.app/
 
 
-🛠️ Tech Stack
+🛠️ Tech Stack</br>
 Framework: Vue 3 (Composition API)
 
 Build Tool: Vite

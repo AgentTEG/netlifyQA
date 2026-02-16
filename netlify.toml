@@ -2,6 +2,19 @@
   command = "npm run build"
   publish = "dist"
 
+# 1. The 301 Redirect
+[[redirects]]
+  from = "/netlify/*"
+  to = "https://www.google.com/search?q=:splat"
+  status = 301
+
+# 2. The Proxy Redirect
+[[redirects]]
+  from = "/search-proxy/*"
+  to = "https://www.google.com/search?q=:splat"
+  status = 200
+
+# 3. Your existing SPA rule (keep this at the bottom)
 [[redirects]]
   from = "/*"
   to = "/index.html"

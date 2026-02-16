@@ -72,7 +72,7 @@ export default {
       qaData: [
 
         {
-          question: "Talk about how you made your site and why you chose the tools you did.",
+          question: "Talk about how you made your site and why you chose the tools you did. Briefly explain one challenge you experienced in setting up this site and how you overcame it.",
           answer: `
             <p>I built this site by repurposing one of my existing Vue projects and configuring it specifically for this QA assessment.</p>
             </br>
@@ -81,7 +81,6 @@ export default {
               <li>Vue 3 (Composition API)</li>
               <li>Vite</li>
               <li>Vue Router (Hash Mode)</li>
-              <li>DeepSeek-R1:8B</li>
             </ul>
             </br>
             <p>Since this was my first time using Netlify, one challenge I encountered was deployment compatibility. Some configurations from my previous projects (especially routing behavior and build settings) did not immediately translate cleanly. I resolved this by reviewing build settings, adjusting the publish directory, and ensuring the router configuration aligned with static hosting requirements. Overall, the issue was manageable and helped me better understand Netlify’s deployment workflow.</p>
@@ -89,7 +88,7 @@ export default {
         },
 
         {
-          question: "What did you think of our service during the time you used it?",
+          question: "What did you think of our service during the time you used it? Provide some constructive criticism or some features that impressed you.",
           answer: `
             <p>My experience using Netlify was smooth and impressive, particularly the AI-assisted deployment guidance.</p>
             <p>I appreciated how quickly a project can go from repository to live deployment.</p></br>
@@ -98,7 +97,7 @@ export default {
         },
 
         {
-          question: "Rank your 5 favorite and 5 least favorite activities.",
+          question: "Rank your 5 favorite and 5 least favorite activities from this list: https://gist.github.com/laurajodz/592402a6336410377dee1a744af846ab",
           answer: `
             <h3>Top 5 Favorite Activities</h3>
             <ul>
@@ -121,7 +120,7 @@ export default {
         },
 
         {
-          question: "Provide a link to documentation you think is well done.",
+          question: "Provide a link to documentation for a technical/developer-focused product, which you think are well done, and explain why you think they are well done.",
           answer: `
             <p><strong>GitHub Pages Documentation:</strong></p>
             <p>https://docs.github.com/en/pages</p>
@@ -139,7 +138,7 @@ export default {
         },
 
         {
-          question: "Explain two major DNS challenges.",
+          question: "Explain, in a couple of paragraphs, what you think are two major challenges around DNS configuration for less-technical customers hosting websites.",
           answer: `
             <h3>1. DNS Propagation Delays</h3>
             <p>Many users expect DNS changes to be instant. When records are updated, propagation can take several hours depending on TTL values and global DNS caching. This delay often leads customers to believe something is broken, when in reality the system is still updating.</p>
@@ -152,7 +151,7 @@ export default {
         },
 
         {
-          question: "How would you troubleshoot a build error with exit code 2?",
+          question: "A customer writes in to Support saying simply that their “site won’t build”. You have access to their build logs, and there you see this error: Build failed due to a user error: Build script returned non-zero exit code: 2. You have no more information than this and the site’s source repository is private so you cannot test the build yourself. How would you troubleshoot this issue? What steps would you take? Also, please compose your best customer-facing first response.",
           answer: `
             <h3>Troubleshooting Steps</h3>
             <ol>
@@ -179,21 +178,31 @@ export default {
           `
         },
 
+{
+  question: "How would you set up an http 301 status redirect from “/netlify/anything” on your site, to https://www.google.com/search?q=anything. Please provide the redirect formatting here. Now, how about a proxy redirect? Please add that proxy redirect rule directly to your site!",
+  answer: `
+    <h3>301 Redirect</h3>
+    <p>In my <code>netlify.toml</code>, I added a rule to capture all nested paths using a splat:</p>
+    <pre>
+[[redirects]]
+  from = "/netlify/*"
+  to = "https://www.google.com/search?q=:splat"
+  status = 301</pre>
+
+    <h3>Proxy Redirect (200)</h3>
+    <p>To proxy directly to Google while keeping the user on my domain, I used a 200 status code:</p>
+    <pre>
+[[redirects]]
+  from = "/search-proxy/*"
+  to = "https://www.google.com/search?q=:splat"
+  status = 200</pre>
+
+    <p>I placed these rules <b>above</b> my existing SPA "catch-all" rule to ensure they trigger correctly before the site defaults to index.html.</p>
+  `
+},
+
         {
-          question: "How would you configure a 301 redirect and proxy redirect?",
-          answer: `
-            <h3>301 Redirect</h3>
-            <pre>/netlify/:query https://www.google.com/search?q=:query 301</pre>
-
-            <h3>Proxy Redirect (200)</h3>
-            <pre>/netlify/* /index.html 200</pre>
-
-            <p>This proxy rule supports SPA routing while preserving URLs.</p>
-          `
-        },
-
-        {
-          question: "Deploy a simple Hello World function.",
+          question: "Please attempt to deploy a function on our service. This need not be complicated. It could be Hello World. Note that failure to deploy is not failing the exercise! Whether you have trouble or not, please describe what you experienced and how you attempted to troubleshoot any issues you encountered.",
           answer: `
             <h3>I deployed a "Hello World" function to Netlify. Here is the breakdown:</h3>
             <ol>
@@ -210,7 +219,7 @@ export default {
         },
 
         {
-          question: "How would you respond to a severe security report?",
+          question: "We understand you don't know anything about our internal procedures at this stage, but we want you to explain at a high level how you'd react to this situation: You receive a report of a severe security issue on www.netlify.com. You can't immediately confirm the report, so what steps might you take to investigate or substantiate the report? What might you say to the reporter, even though we haven't confirmed their assertion yet, that will instill confidence that our business is very concerned about security? You believe there is a reasonable chance the report is correct and the problem is very large and impactful. How might you escalate?",
           answer: `
             <h3>Investigation Steps</h3>
             <ul>

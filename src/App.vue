@@ -2,7 +2,6 @@
 </script>
 
 <template>
-  <!-- 🌫️ GLOBAL ROUTE TRANSITION (LOGIN ↔ DASHBOARD) -->
   <router-view v-slot="{ Component }">
     <transition name="app-fog" mode="out-in">
       <component :is="Component" />
@@ -14,8 +13,6 @@
 :root {
   --primary: #658a43;
   --primary-dark: #3f5f2f;
-
-  /* 🌫️ DARK FOG COLORS */
   --bg-dark: #0f1a12;
   --bg-darker: #0b140e;
 }
@@ -24,24 +21,23 @@
   box-sizing: border-box;
   margin: 0;
   padding: 0;
+  /* Standard font fallback */
   font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
 }
 
-/* ✅ SCROLL FIX — DO NOT CHANGE */
+/* ✅ SCROLL & VIEWPORT FIX */
 html,
 body {
   width: 100%;
-  min-height: 100%;
+  /* Use vh to ensure background covers full screen height */
+  min-height: 100vh;
   background-color: var(--bg-dark);
   color: #e5e7eb;
-
   overflow-x: hidden;
   overflow-y: auto;
 }
 
-/* ===================================================
-   🌫️ GLOBAL FOG TRANSITION (LOGIN ↔ DASHBOARD)
-   =================================================== */
+/* 🌫️ GLOBAL FOG TRANSITION */
 .app-fog-enter-active,
 .app-fog-leave-active {
   transition:

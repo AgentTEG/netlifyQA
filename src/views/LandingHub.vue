@@ -76,7 +76,7 @@ export default {
           answer: `
             <p>I built this site by repurposing one of my existing Vue projects and configuring it specifically for this QA assessment.</p>
             </br>
-            <p><strong>Tech Stack:</strong></p>
+            <p><strong>My tech stack includes:</strong></p>
             <ul>
               <li>Vue 3 (Composition API)</li>
               <li>Vite</li>
@@ -84,7 +84,7 @@ export default {
               <li>DeepSeek-R1:8B</li>
             </ul>
             </br>
-            <p>One challenge was deployment compatibility when moving to Netlify. I resolved it by reviewing build settings, adjusting the publish directory, and ensuring router configuration aligned with static hosting.</p>
+            <p>Since this was my first time using Netlify, one challenge I encountered was deployment compatibility. Some configurations from my previous projects (especially routing behavior and build settings) did not immediately translate cleanly. I resolved this by reviewing build settings, adjusting the publish directory, and ensuring the router configuration aligned with static hosting requirements. Overall, the issue was manageable and helped me better understand Netlify’s deployment workflow.</p>
           `
         },
 
@@ -93,7 +93,7 @@ export default {
           answer: `
             <p>My experience using Netlify was smooth and impressive, particularly the AI-assisted deployment guidance.</p>
             <p>I appreciated how quickly a project can go from repository to live deployment.</p></br>
-            <p><strong>Constructive feedback:</strong> More beginner-friendly contextual explanations would improve accessibility for non-technical users.</p>
+            <p><strong>Constructive feedback:</strong> A small constructive criticism would be related to AI terminology and explanation depth. While the assistance is helpful, some guidance assumes a certain level of technical familiarity. For non-technical users, more detailed explanations or contextual examples could make the experience even clearer and more accessible. Overall, the service feels developer-focused, efficient, and fast.</p>
           `
         },
 
@@ -126,12 +126,15 @@ export default {
             <p><strong>GitHub Pages Documentation:</strong></p>
             <p>https://docs.github.com/en/pages</p>
 </br>
+            <p>GitHub Pages documentation is well done because:</p>
             <ul>
-              <li>Clear progression from setup to advanced configuration</li>
-              <li>Practical step-by-step examples</li>
-              <li>Well-segmented topics</li>
-              <li>Balanced beginner and advanced detail</li>
+              <li>Clear structure: It provides a logical progression from basic setup to advanced custom domain configuration.</li>
+              <li>Practical examples: Step-by-step guides with real configuration examples make it easy to follow.</li>
+              <li>Well segmented topics: DNS configuration, Jekyll integration, and deployment methods are separated clearly.</li>
+              <li>Beginner to advanced friendly: It balances accessibility while still being technically detailed enough for developers.</li>
             </ul>
+            </br>
+            <p>The documentation avoids unnecessary jargon and focuses on actionable steps, which improves usability.</p>
           `
         },
 
@@ -139,13 +142,11 @@ export default {
           question: "Explain two major DNS challenges.",
           answer: `
             <h3>1. DNS Propagation Delays</h3>
-            <p>Changes are not instant due to TTL and global caching, often leading users to believe something is broken.</p>
+            <p>Many users expect DNS changes to be instant. When records are updated, propagation can take several hours depending on TTL values and global DNS caching. This delay often leads customers to believe something is broken, when in reality the system is still updating.</p>
 </br>
-            <h3>2. Incorrect Record Configuration</h3>
+            <h3>2. Incorrect Record Configuration Common mistakes</h3>
             <ul>
-              <li>Mixing A and CNAME records</li>
-              <li>Old records left active</li>
-              <li>Misconfigured nameservers</li>
+              <p>Mixing up A records and CNAME records Leaving old DNS records active Misconfiguring nameservers Since DNS involves multiple providers (domain registrar vs hosting platform), customers may become confused about where changes should be made. Clear visual guides and DNS validation tools significantly reduce confusion in these</p>
             </ul>
           `
         },
@@ -155,22 +156,25 @@ export default {
           answer: `
             <h3>Troubleshooting Steps</h3>
             <ol>
-              <li>Review full build logs</li>
-              <li>Check build command and publish directory</li>
-              <li>Verify Node version</li>
-              <li>Check dependencies</li>
-              <li>Ask if build works locally</li>
+              <li>Troubleshooting Process Identify: Review full build logs to locate where the non-zero exit code occurred. Check for dependency errors, environment variable issues, or configuration problems.</li>
+              <li>Replicate: Ask the customer if the build works locally using the same build command and Node version.</li>
+              <li>Test: Confirm: Correct build command Proper publish directory Node version alignment Dependencies in package.json</li>
+              <li>Resolve: Guide the customer to fix any dependency mismatch, missing environment variables, or incorrect build configuration.</li>
+              <li>Release: Trigger a new deployment after fixes are confirmed.</li>
             </ol>
 </br>
             <h3>Customer Response</h3>
             <p>Hi [Customer Name],</p>
-            <p>Your build is failing with a non-zero exit code.</p>
+            <p>Thanks for reaching out! I can see that your build is failing with a non-zero exit code, which typically means the build script encountered an error. </br></br>To help narrow this down:</p>
+     
             <ul>
-              <li>Does it build locally?</li>
-              <li>Any recent changes?</li>
-              <li>Can you share full logs?</li>
-            </ul>
-            <p>Once I have more details, I’ll help resolve it quickly.</p>
+              <li>Does the site build successfully on your local machine?</li>
+              <li>Were there any recent dependency or configuration changes?</li>
+              <li>Could you share the full build logs from your deploy details?</li>            
+              </ul>
+              </br>
+            <p>Common causes include dependency issues, missing environment variables, or Node version mismatches. Once I have a bit more information, I’ll be able to pinpoint the issue and help get your site deployed successfully.</p>
+            </br>
             <p>Best regards,<br/>Alfred</p>
           `
         },
@@ -191,24 +195,17 @@ export default {
         {
           question: "Deploy a simple Hello World function.",
           answer: `
-            <h3>Steps</h3>
+            <h3>I deployed a "Hello World" function to Netlify. Here is the breakdown:</h3>
             <ol>
-              <li>Create <code>netlify/functions</code></li>
-              <li>Create <code>hello.js</code></li>
-              <li>Add handler:</li>
+              <li>Setup: Created netlify/functions/hello-world.js using the standard Web Request/Response API.</li>
+              <li>Testing: Used the Netlify CLI (netlify dev) to verify the endpoint worked on my local machine first.</li>
+              <li>Deployment: Linked my repository to Netlify for an automatic build upon pushing to GitHub.</li>
+              <li>Verification: Confirmed the function was live by visiting the /.netlify/functions/hello-world endpoint.</li>
             </ol>
+</br>
+            <p><strong>Challenges & Troubleshooting:</strong></p>
+            <p> The main challenge was ensuring the directory structure was correct. I initially put the file in a top-level functions/ folder, but Netlify didn't "see" it. I checked the Functions tab in the Netlify dashboard, noticed it was empty, and realized I needed to move the file into a netlify/functions/ directory. Once moved and redeployed, it worked perfectly.</p>
 
-            <pre>
-exports.handler = async function () {
-  return {
-    statusCode: 200,
-    body: "Hello World"
-  };
-};
-            </pre>
-
-            <p>Access via:<br/>
-            <code>/.netlify/functions/hello</code></p>
           `
         },
 
@@ -217,21 +214,20 @@ exports.handler = async function () {
           answer: `
             <h3>Investigation Steps</h3>
             <ul>
-              <li>Document all details</li>
+              <li>Document everything: Record affected URLs, reproduction steps, timestamps, and any proof-of-concept details provided.</li>
               <li>Attempt to isolate identified issue</li>
-              <li>Assess impact and severity</li>
-              <li>Review recent changes</li>
+              <li>Gather context: Check for related reports and review recent platform updates.</li>
+              <li>Assess severity: Determine potential impact (data exposure, authentication bypass, service disruption)</li>
             </ul>
 </br>
             <h3>Initial Response</h3>
-            <p>Thank you for reporting this issue. We take security very seriously. This has been escalated to our security team for immediate investigation.</p>
+            <p>Thank you for reporting this security concern. We take security reports extremely seriously. I have documented your report and am escalating it to our security team for immediate investigation. To ensure proper handling, a secure internal ticket has been created and our incident response team has been notified. We appreciate responsible disclosure. Please refrain from sharing details publicly while we investigate. If you have additional technical information or proof-of-concept, please share it securely. We will follow up as soon as more information is available.</p>
 </br>
             <h3>Escalation</h3>
             <ul>
-              <li>Notify security lead</li>
-              <li>Create high-severity ticket</li>
-              <li>Engage incident response team</li>
-              <li>Coordinate communication plan</li>
+              <li>Notify security lead and on-call engineer immediately</li>
+              <li>Create high-severity incident ticket Inform engineering leadership if impact is large</li>
+              <li>Assemble relevant system owners Coordinate communication plan if disclosure becomes necessary</li>
             </ul>
           `
         }
